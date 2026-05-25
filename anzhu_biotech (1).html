@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安築生技 — 生物混凝土</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=DM+Mono:ital,wght@0,400;1,400&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+:root {
+  --ink: #1c1f1c;
+  --ink-soft: #4a5248;
+  --ink-faint: #8a9287;
+  --moss: #2e5c3e;
+  --moss-light: #4a8c5c;
+  --sage: #7aab86;
+  --mint: #c4dfc9;
+  --cream: #f5f3ee;
+  --white: #ffffff;
+  --rule: #d8d4cc;
+}
+
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.6;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; width: 100%; z-index: 99;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 56px; height: 56px;
+  background: var(--cream);
+  border-bottom: 1px solid var(--rule);
+}
+.nav-id {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px; letter-spacing: 0.08em;
+  color: var(--ink-soft);
+}
+.nav-id em { font-style: normal; color: var(--moss); font-weight: 400; }
+.nav-menu {
+  display: flex; gap: 36px; list-style: none;
+}
+.nav-menu a {
+  font-size: 12px; text-decoration: none; color: var(--ink-faint);
+  letter-spacing: 0.06em; transition: color .2s;
+}
+.nav-menu a:hover { color: var(--moss); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100svh;
+  padding-top: 56px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--white);
+  overflow: hidden;
+  position: relative;
+}
+.hero-left {
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 80px 56px 72px;
+  border-right: 1px solid var(--rule);
+  position: relative;
+}
+.hero-index {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--ink-faint);
+  letter-spacing: 0.12em; margin-bottom: 48px;
+}
+.hero-h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(42px, 5.5vw, 80px);
+  font-weight: 900; line-height: 1.05;
+  color: var(--ink); letter-spacing: -0.01em;
+}
+.hero-h1 .en {
+  display: block;
+  font-size: 0.42em; font-weight: 400;
+  color: var(--moss); letter-spacing: 0.08em;
+  font-family: 'DM Mono', monospace;
+  margin-bottom: 8px;
+}
+.hero-byline {
+  margin-top: 32px; padding-top: 32px;
+  border-top: 1px solid var(--rule);
+  font-size: 13px; color: var(--ink-faint);
+  line-height: 1.9;
+}
+.hero-byline strong { color: var(--ink-soft); font-weight: 500; }
+.hero-right {
+  background: var(--moss);
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  padding: 80px 56px 72px;
+  position: relative; overflow: hidden;
+}
+.hero-right::before {
+  content: '';
+  position: absolute; top: -120px; right: -120px;
+  width: 480px; height: 480px; border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  pointer-events: none;
+}
+.hero-tagline {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(18px, 2.2vw, 28px); font-weight: 700;
+  color: var(--white); line-height: 1.55;
+}
+.hero-tagline em {
+  display: block; font-style: normal;
+  color: var(--sage); font-family: 'DM Mono', monospace;
+  font-size: 0.5em; font-weight: 400;
+  letter-spacing: 0.1em; margin-bottom: 12px;
+}
+.hero-stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 4px; overflow: hidden;
+}
+.hero-stat {
+  background: rgba(255,255,255,0.04);
+  padding: 20px 22px;
+}
+.hero-stat-val {
+  font-family: 'DM Mono', monospace;
+  font-size: 28px; color: var(--white); line-height: 1;
+}
+.hero-stat-key {
+  font-size: 11px; color: rgba(255,255,255,0.45);
+  margin-top: 4px; letter-spacing: 0.06em;
+}
+.hero-scroll-hint {
+  position: absolute; bottom: 32px; left: 56px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--rule);
+  letter-spacing: 0.14em; writing-mode: vertical-rl;
+}
+
+/* ── SHARED ── */
+.section {
+  padding: 100px 0;
+}
+.wrap {
+  max-width: 1200px; margin: 0 auto; padding: 0 56px;
+}
+.section-header {
+  display: grid; grid-template-columns: 200px 1fr; gap: 48px;
+  margin-bottom: 64px; align-items: start;
+  padding-bottom: 40px; border-bottom: 1px solid var(--rule);
+}
+.section-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--ink-faint); letter-spacing: 0.12em;
+  padding-top: 6px;
+}
+.section-h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(26px, 3vw, 38px); font-weight: 900;
+  color: var(--ink); line-height: 1.2;
+}
+.section-lead {
+  font-size: 15px; color: var(--ink-soft); line-height: 1.9;
+  margin-top: 14px; max-width: 520px;
+}
+
+/* ── COMPANY ── */
+#intro { background: var(--cream); }
+.company-split {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: var(--rule); border: 1px solid var(--rule);
+  border-radius: 6px; overflow: hidden;
+}
+.company-col {
+  background: var(--white); padding: 48px;
+}
+.company-col + .company-col {
+  background: var(--moss); color: var(--white);
+}
+.co-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--ink-faint); letter-spacing: 0.14em;
+  text-transform: uppercase; margin-bottom: 6px;
+}
+.co-val {
+  font-size: 17px; font-weight: 500; color: var(--ink);
+  margin-bottom: 28px;
+}
+.company-col + .company-col .co-label { color: rgba(255,255,255,0.45); }
+.company-col + .company-col .co-val { color: var(--white); }
+.product-duo {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px;
+}
+.product-box {
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 6px; padding: 18px;
+  background: rgba(255,255,255,0.06);
+}
+.product-box .tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--sage); letter-spacing: 0.1em;
+}
+.product-box .name {
+  font-size: 14px; font-weight: 500; color: var(--white);
+  margin-top: 4px;
+}
+.product-box .desc {
+  font-size: 12px; color: rgba(255,255,255,0.45);
+  margin-top: 4px; line-height: 1.6;
+}
+
+/* ── SCIENCE ── */
+#science { background: var(--white); }
+.bio-char {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+  background: var(--rule); border: 1px solid var(--rule);
+  border-radius: 6px; overflow: hidden;
+  margin-bottom: 56px;
+}
+.bio-char-item {
+  background: var(--cream); padding: 32px 28px;
+}
+.bio-char-item:nth-child(even) { background: var(--white); }
+.bci-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 32px; font-weight: 400; color: var(--mint);
+  line-height: 1; margin-bottom: 16px;
+}
+.bci-title { font-size: 14px; font-weight: 500; color: var(--moss); margin-bottom: 10px; }
+.bci-body { font-size: 13px; color: var(--ink-faint); line-height: 1.8; }
+
+.reactions {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+}
+.rxn-card {
+  border: 1px solid var(--rule); border-radius: 6px; overflow: hidden;
+}
+.rxn-head {
+  background: var(--ink); color: var(--white);
+  padding: 14px 24px; display: flex; gap: 12px; align-items: baseline;
+}
+.rxn-head-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--sage); letter-spacing: 0.1em;
+}
+.rxn-head-title { font-size: 15px; font-weight: 500; }
+.rxn-body { padding: 24px; background: var(--white); }
+.rxn-formula {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px; color: var(--moss);
+  background: var(--cream); border-left: 3px solid var(--sage);
+  padding: 10px 16px; border-radius: 0 4px 4px 0;
+  margin-bottom: 16px; letter-spacing: 0.04em;
+}
+.rxn-points {
+  list-style: none; display: flex; flex-direction: column; gap: 8px;
+}
+.rxn-points li {
+  font-size: 13px; color: var(--ink-soft); line-height: 1.7;
+  padding-left: 16px; position: relative;
+}
+.rxn-points li::before {
+  content: '—';
+  position: absolute; left: 0; color: var(--rule);
+}
+
+/* ── PROCESS aside card ── */
+.process-strip {
+  display: grid; grid-template-columns: repeat(6, 1fr);
+  gap: 0; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden;
+  margin-top: 40px;
+}
+.ps-item {
+  padding: 20px 16px; border-right: 1px solid var(--rule);
+  background: var(--white); text-align: center;
+  transition: background .2s;
+}
+.ps-item:last-child { border-right: none; }
+.ps-item:hover { background: var(--cream); }
+.ps-n {
+  display: inline-flex; width: 24px; height: 24px; border-radius: 50%;
+  background: var(--moss); color: white;
+  align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700; margin-bottom: 10px;
+}
+.ps-t { font-size: 12px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+.ps-d { font-size: 11px; color: var(--ink-faint); line-height: 1.6; }
+
+/* ── GREEN CHEM ── */
+#green { background: var(--cream); }
+.principles-list {
+  display: flex; flex-direction: column; gap: 1px;
+  background: var(--rule); border: 1px solid var(--rule);
+  border-radius: 6px; overflow: hidden;
+}
+.principle-row {
+  display: grid; grid-template-columns: 56px 160px 1fr;
+  background: var(--white); transition: background .2s;
+}
+.principle-row:hover { background: #f7faf8; }
+.pr-num {
+  padding: 22px 0 22px 24px;
+  font-family: 'DM Mono', monospace;
+  font-size: 22px; color: var(--mint); font-weight: 400; line-height: 1;
+}
+.pr-title {
+  padding: 22px 16px;
+  font-size: 14px; font-weight: 500; color: var(--moss);
+  border-left: 1px solid var(--rule); border-right: 1px solid var(--rule);
+  display: flex; align-items: center;
+}
+.pr-body {
+  padding: 22px 24px;
+  font-size: 13px; color: var(--ink-soft); line-height: 1.8;
+  display: flex; align-items: center;
+}
+
+/* ── MARKET ── */
+#market { background: var(--ink); color: var(--white); }
+#market .section-num { color: rgba(255,255,255,0.25); }
+#market .section-h2 { color: var(--white); }
+#market .section-lead { color: rgba(255,255,255,0.45); }
+#market .section-header { border-bottom-color: rgba(255,255,255,0.1); }
+
+.market-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; }
+.market-cost {
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px; padding: 36px; align-self: start;
+  background: rgba(255,255,255,0.03);
+}
+.mc-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--sage); letter-spacing: 0.14em;
+  margin-bottom: 20px;
+}
+.mc-row {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+.mc-row:last-child { border-bottom: none; }
+.mc-row-label { font-size: 13px; color: rgba(255,255,255,0.45); }
+.mc-row-val {
+  font-family: 'DM Mono', monospace;
+  font-size: 18px; color: var(--white);
+}
+.mc-row-val.up { color: #f4a261; }
+.mc-row-val.down { color: var(--sage); }
+
+.market-segments {
+  display: flex; flex-direction: column; gap: 16px;
+}
+.seg-card {
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 6px; padding: 28px 32px;
+  background: rgba(255,255,255,0.03);
+  display: grid; grid-template-columns: auto 1fr; gap: 20px; align-items: start;
+}
+.seg-icon {
+  width: 40px; height: 40px; border-radius: 6px;
+  background: rgba(122,171,134,0.15);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.seg-name { font-size: 15px; font-weight: 500; color: var(--white); margin-bottom: 6px; }
+.seg-desc { font-size: 13px; color: rgba(255,255,255,0.4); line-height: 1.7; }
+.market-quote {
+  margin-top: 48px; padding: 36px;
+  border: 1px solid rgba(122,171,134,0.3);
+  border-radius: 6px; background: rgba(122,171,134,0.06);
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(17px, 2vw, 22px); color: var(--sage);
+  line-height: 1.6; text-align: center;
+}
+.market-quote::before { content: '「'; }
+.market-quote::after { content: '」'; }
+
+/* ── MARKETING ── */
+#marketing { background: var(--white); }
+.channel-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+}
+.ch-card {
+  border: 1px solid var(--rule); border-radius: 6px; padding: 32px;
+  transition: border-color .2s, transform .2s;
+}
+.ch-card:hover { border-color: var(--sage); transform: translateY(-3px); }
+.ch-type {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--sage); letter-spacing: 0.14em;
+  text-transform: uppercase; margin-bottom: 16px;
+}
+.ch-name { font-size: 19px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+.ch-means {
+  font-size: 13px; color: var(--moss); font-weight: 500; margin-bottom: 12px;
+}
+.ch-goal { font-size: 13px; color: var(--ink-faint); line-height: 1.8; }
+
+/* ── CONCLUSION ── */
+#conclusion { background: var(--moss); color: var(--white); }
+#conclusion .section-num { color: rgba(255,255,255,0.25); }
+#conclusion .section-h2 { color: var(--white); }
+#conclusion .section-lead { color: rgba(255,255,255,0.55); }
+#conclusion .section-header { border-bottom-color: rgba(255,255,255,0.12); }
+
+.conclusion-body {
+  display: grid; grid-template-columns: 1fr 320px; gap: 64px; align-items: start;
+}
+.conclusion-text {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(16px, 1.8vw, 20px); line-height: 1.9;
+  color: rgba(255,255,255,0.75);
+}
+.conclusion-text strong { color: var(--white); font-weight: 700; }
+.conclusion-side {}
+.team-block {
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px; overflow: hidden;
+}
+.team-head {
+  background: rgba(255,255,255,0.06);
+  padding: 14px 20px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 0.12em;
+}
+.team-member {
+  padding: 14px 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.tm-id {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: rgba(255,255,255,0.3);
+}
+.tm-name { font-size: 14px; color: var(--white); font-weight: 500; }
+.group-badge {
+  margin-top: 20px; text-align: center;
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px; color: var(--sage); letter-spacing: 0.12em;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink); padding: 28px 56px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.ft-left {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: rgba(255,255,255,0.2);
+  letter-spacing: 0.08em;
+}
+.ft-left em { font-style: normal; color: var(--sage); }
+.ft-right { font-size: 11px; color: rgba(255,255,255,0.15); letter-spacing: 0.06em; }
+
+/* ── ANIMATIONS ── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0 24px; }
+  .nav-menu { display: none; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-right { min-height: 320px; }
+  .hero-scroll-hint { display: none; }
+  .wrap { padding: 0 24px; }
+  .section-header { grid-template-columns: 1fr; gap: 12px; }
+  .company-split, .reactions, .market-layout, .channel-grid, .conclusion-body { grid-template-columns: 1fr; }
+  .bio-char { grid-template-columns: 1fr 1fr; }
+  .process-strip { grid-template-columns: repeat(3,1fr); }
+  .principle-row { grid-template-columns: 40px 1fr; }
+  .pr-body { display: none; }
+  footer { flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-id"><em>ANZHU BIOTECH</em> — 安築生技股份有限公司</span>
+  <ul class="nav-menu">
+    <li><a href="#intro">公司簡介</a></li>
+    <li><a href="#science">科學原理</a></li>
+    <li><a href="#green">綠色化學</a></li>
+    <li><a href="#market">市場評估</a></li>
+    <li><a href="#marketing">行銷管道</a></li>
+    <li><a href="#conclusion">總結</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-index">自然科學通論 · 期末報告 · 第7組</div>
+    <h1 class="hero-h1">
+      <span class="en">BIO-CONCRETE</span>
+      永續的<br>建築材料
+    </h1>
+    <div class="hero-byline">
+      <strong>生物混凝土</strong>——透過巴氏芽孢八疊球菌<br>
+      的生物礦化機制，讓每一道裂縫都自動修復。<br><br>
+      <strong>安築生技股份有限公司</strong><br>
+      從微小開始，讓建築自我修復。
+    </div>
+    <div class="hero-scroll-hint">SCROLL ↓</div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-tagline">
+      <em>SELF-HEALING CONCRETE DUO SYSTEM</em>
+      現在多花一點錢，<br>未來50年不用修
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-val">BSL-1</div>
+        <div class="hero-stat-key">生物安全等級</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">50%+</div>
+        <div class="hero-stat-key">可省維修費</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">50yr</div>
+        <div class="hero-stat-key">延長建築壽命</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-val">5–10%</div>
+        <div class="hero-stat-key">初期額外成本</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="section" id="intro">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-num">01 — COMPANY</div>
+      <div>
+        <h2 class="section-h2">公司簡介</h2>
+        <p class="section-lead">安築生技將尖端生物技術導入建築材料，以自然的力量解決混凝土老化問題，打造兼顧耐久與永續的建築解決方案。</p>
+      </div>
+    </div>
+    <div class="company-split reveal">
+      <div class="company-col">
+        <div class="co-label">公司名稱</div>
+        <div class="co-val">安築生技股份有限公司</div>
+        <div class="co-label">英文名稱</div>
+        <div class="co-val" style="font-family:'DM Mono',monospace;font-size:14px;letter-spacing:.08em">ANZHU BIOTECH CO., LTD.</div>
+        <div class="co-label">核心業務</div>
+        <div class="co-val">生物混凝土技術研發與銷售</div>
+        <div class="co-label">主打商品</div>
+        <div class="co-val">自我修復混凝土雙效組</div>
+      </div>
+      <div class="company-col">
+        <div class="co-label">品牌理念</div>
+        <div class="co-val">從微小開始，讓建築自我修復</div>
+        <div class="co-label">核心產品</div>
+        <div class="product-duo">
+          <div class="product-box">
+            <div class="tag">A 罐</div>
+            <div class="name">生物膠囊</div>
+            <div class="desc">Bio-Capsule<br>內含芽孢細菌與營養，裂縫觸發釋放</div>
+          </div>
+          <div class="product-box">
+            <div class="tag">B 罐</div>
+            <div class="name">LWA 儲水骨材</div>
+            <div class="desc">LWA Aggregate<br>多孔結構儲水，長效供應反應所需水分</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCIENCE -->
+<section class="section" id="science">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-num">02 — SCIENCE</div>
+      <div>
+        <h2 class="section-h2">科學原理</h2>
+        <p class="section-lead">以巴氏芽孢八疊球菌（<em>Sporosarcina pasteurii</em>）為核心，透過兩階段生物礦化反應，在裂縫中自動生成碳酸鈣填補結構。</p>
+      </div>
+    </div>
+
+    <div class="bio-char reveal">
+      <div class="bio-char-item">
+        <div class="bci-num">01</div>
+        <div class="bci-title">極強嗜鹼性</div>
+        <div class="bci-body">適合混凝土內部的高鹼環境，普通菌種無法存活之處仍能正常運作。</div>
+      </div>
+      <div class="bio-char-item">
+        <div class="bci-num">02</div>
+        <div class="bci-title">內芽孢保命機制</div>
+        <div class="bci-body">芽孢抵抗攪拌壓力，在乾涸混凝土中潛伏數十年，遇水即喚醒。</div>
+      </div>
+      <div class="bio-char-item">
+        <div class="bci-num">03</div>
+        <div class="bci-title">高效尿素酶分泌</div>
+        <div class="bci-body">極速分解尿素，細胞壁帶負電荷吸引鈣離子，催化碳酸鈣沉澱。</div>
+      </div>
+      <div class="bio-char-item">
+        <div class="bci-num">04</div>
+        <div class="bci-title">BSL-1 安全等級</div>
+        <div class="bci-body">非致病菌，對人類、動物及植物均無已知危害，符合施工安全要求。</div>
+      </div>
+    </div>
+
+    <div class="reactions reveal">
+      <div class="rxn-card">
+        <div class="rxn-head">
+          <span class="rxn-head-num">STAGE 01</span>
+          <span class="rxn-head-title">尿素水解反應</span>
+        </div>
+        <div class="rxn-body">
+          <div class="rxn-formula">CO(NH₂)₂ + 2H₂O → 2NH₄⁺ + CO₃²⁻</div>
+          <ul class="rxn-points">
+            <li>細菌分泌尿素酶（Urease）作為生物催化劑</li>
+            <li>銨離子產生使環境 pH 值升高，形成強鹼環境</li>
+            <li>碳酸根離子在強鹼下穩定存在，備妥與鈣結合</li>
+          </ul>
+        </div>
+      </div>
+      <div class="rxn-card">
+        <div class="rxn-head">
+          <span class="rxn-head-num">STAGE 02</span>
+          <span class="rxn-head-title">碳酸鈣沉澱反應</span>
+        </div>
+        <div class="rxn-body">
+          <div class="rxn-formula">Ca²⁺ + CO₃²⁻ → CaCO₃ ↓</div>
+          <ul class="rxn-points">
+            <li>碳酸根遇環境中的鈣離子，發生強烈化學吸引</li>
+            <li>生成不溶於水的碳酸鈣結晶（沉澱反應）</li>
+            <li>結晶在細胞表面生長，如填縫劑填滿並硬化裂縫</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="process-strip reveal">
+      <div class="ps-item">
+        <div class="ps-n">1</div>
+        <div class="ps-t">裂縫產生</div>
+        <div class="ps-d">荷載或收縮導致裂縫</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-n">2</div>
+        <div class="ps-t">水分滲入</div>
+        <div class="ps-d">提供細菌生存環境</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-n">3</div>
+        <div class="ps-t">細菌活化</div>
+        <div class="ps-d">芽孢喚醒開始代謝</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-n">4</div>
+        <div class="ps-t">生成碳酸鈣</div>
+        <div class="ps-d">代謝產生碳酸根與鈣結合</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-n">5</div>
+        <div class="ps-t">填充裂縫</div>
+        <div class="ps-d">結晶不斷沉積填滿</div>
+      </div>
+      <div class="ps-item">
+        <div class="ps-n">6</div>
+        <div class="ps-t">修復完成</div>
+        <div class="ps-d">結構完整性恢復</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GREEN CHEMISTRY -->
+<section class="section" id="green">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-num">03 — GREEN CHEM</div>
+      <div>
+        <h2 class="section-h2">綠色化學<br>12原則關連處</h2>
+        <p class="section-lead">生物混凝土從材料設計到使用壽命終結，完整體現綠色化學的核心精神。</p>
+      </div>
+    </div>
+    <div class="principles-list reveal">
+      <div class="principle-row">
+        <div class="pr-num">01</div>
+        <div class="pr-title">預防</div>
+        <div class="pr-body">透過自癒合功能延長建築壽命，從源頭減少結構損壞所產生的拆除廢棄物，避免問題發生而非事後處理。</div>
+      </div>
+      <div class="principle-row">
+        <div class="pr-num">02</div>
+        <div class="pr-title">原子經濟性</div>
+        <div class="pr-body">生物礦化過程有效將環境中的鈣離子與細菌代謝產生的碳酸根轉化為最終產物（碳酸鈣結晶），最大化利用材料。</div>
+      </div>
+      <div class="principle-row">
+        <div class="pr-num">03</div>
+        <div class="pr-title">最小危害的化學合成</div>
+        <div class="pr-body">巴氏芽孢八疊球菌屬於第一級生物安全等級，對人體與環境無毒，施工人員與居住者皆無安全疑慮。</div>
+      </div>
+      <div class="principle-row">
+        <div class="pr-num">04&05</div>
+        <div class="pr-title">更安全的化學品與溶劑</div>
+        <div class="pr-body">產品設計在保有修復功能的同時減少有害化學品的使用；生物礦化反應以水為介質，避免有害有機溶劑。</div>
+      </div>
+      <div class="principle-row">
+        <div class="pr-num">06</div>
+        <div class="pr-title">能源效率設計</div>
+        <div class="pr-body">傳統水泥需在 1400°C 以上高溫燒製；生物混凝土的修復反應在室溫、室壓下由微生物自發完成，大幅減少能源需求。</div>
+      </div>
+      <div class="principle-row">
+        <div class="pr-num">09</div>
+        <div class="pr-title">催化</div>
+        <div class="pr-body">細菌體內的尿素酶扮演生物催化劑，能高效引導化學反應，優於傳統化學計量試劑，選擇性高且副產物少。</div>
+      </div>
+      <div class="principle-row">
+        <div class="pr-num">10</div>
+        <div class="pr-title">設計降解</div>
+        <div class="pr-body">功能結束後，碳酸鈣結晶（方解石）與自然界成分相同，可降解或與環境融合，不會造成永久性污染。</div>
+      </div>
+      <div class="principle-row">
+        <div class="pr-num">12</div>
+        <div class="pr-title">由化學本質安全思考</div>
+        <div class="pr-body">選擇穩定的生物礦化形態，能降低化學品洩漏或因修復劑引發火災的風險，從根本提升材料安全性。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARKET -->
+<section class="section" id="market">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-num">04 — MARKET</div>
+      <div>
+        <h2 class="section-h2">市場評估</h2>
+        <p class="section-lead">全球淨零排放趨勢下，傳統水泥污染問題日益受到關注，生物混凝土正從實驗室走向實際工地應用。</p>
+      </div>
+    </div>
+    <div class="market-layout reveal">
+      <div class="market-cost">
+        <div class="mc-label">COST ANALYSIS — 成本分析</div>
+        <div class="mc-row">
+          <div class="mc-row-label">初期材料成本增幅</div>
+          <div class="mc-row-val up">+5–10%</div>
+        </div>
+        <div class="mc-row">
+          <div class="mc-row-label">長期維修費用節省</div>
+          <div class="mc-row-val down">−50%+</div>
+        </div>
+        <div class="mc-row">
+          <div class="mc-row-label">預估延長結構壽命</div>
+          <div class="mc-row-val">50 年</div>
+        </div>
+        <div class="mc-row">
+          <div class="mc-row-label">細菌活躍保存期限</div>
+          <div class="mc-row-val">≥ 12 月</div>
+        </div>
+      </div>
+      <div class="market-segments">
+        <div class="seg-card">
+          <div class="seg-icon">🌊</div>
+          <div>
+            <div class="seg-name">難以維修的場域</div>
+            <div class="seg-desc">離岸風電基座、海底隧道、水壩——水下維修成本極高，生物自修復特性在此場合效益最顯著。</div>
+          </div>
+        </div>
+        <div class="seg-card">
+          <div class="seg-icon">🏭</div>
+          <div>
+            <div class="seg-name">不能漏水的設施</div>
+            <div class="seg-desc">半導體廠房對防水要求極嚴苛，一旦漏水即造成停工與巨額損失，長效修復能力是最強賣點。</div>
+          </div>
+        </div>
+        <div class="seg-card">
+          <div class="seg-icon">🌉</div>
+          <div>
+            <div class="seg-name">公共基礎建設</div>
+            <div class="seg-desc">橋樑等公共設施採用後，可大幅減少未來世代的維修財政負擔，具備長遠社會效益。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="market-quote reveal">
+      現在多花一點錢，未來50年不用修
+    </div>
+  </div>
+</section>
+
+<!-- MARKETING -->
+<section class="section" id="marketing">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-num">05 — MARKETING</div>
+      <div>
+        <h2 class="section-h2">行銷管道</h2>
+        <p class="section-lead">四大管道策略協同運作，將看不見的技術優勢轉化為客戶感受得到的商業價值。</p>
+      </div>
+    </div>
+    <div class="channel-grid reveal">
+      <div class="ch-card">
+        <div class="ch-type">CHANNEL 01 — ACADEMIC</div>
+        <div class="ch-name">學術管道</div>
+        <div class="ch-means">期刊發表、學術講座</div>
+        <div class="ch-goal">建立技術公信力與知名度，讓業界研究者認識安築生技的技術實力，為後續商業合作奠定基礎。</div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-type">CHANNEL 02 — DIRECT</div>
+        <div class="ch-name">直銷管道</div>
+        <div class="ch-means">主動拜訪建商、開發商</div>
+        <div class="ch-goal">直接針對客戶痛點溝通，例如傳統水泥的環境污染與高維修成本，提供量身訂製的解決方案。</div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-type">CHANNEL 03 — DIGITAL</div>
+        <div class="ch-name">數位管道</div>
+        <div class="ch-means">LCC 試算軟體、YouTube 縮時影片</div>
+        <div class="ch-goal">將看不見的技術優勢（50年後省下的維修費）轉化為可量化、視覺化的數字，降低客戶決策門檻。</div>
+      </div>
+      <div class="ch-card">
+        <div class="ch-type">CHANNEL 04 — DISTRIBUTION</div>
+        <div class="ch-name">通路合作</div>
+        <div class="ch-means">預拌混凝土廠策略合作</div>
+        <div class="ch-goal">透過台泥、亞泥等現有混凝土生產通路進行技術授權，快速擴大市場覆蓋規模，無需自建銷售體系。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSION -->
+<section class="section" id="conclusion">
+  <div class="wrap">
+    <div class="section-header reveal">
+      <div class="section-num">06 — CONCLUSION</div>
+      <div>
+        <h2 class="section-h2">總結</h2>
+        <p class="section-lead">生物混凝土是一場由微生物驅動的建築革命。</p>
+      </div>
+    </div>
+    <div class="conclusion-body reveal">
+      <div class="conclusion-text">
+        <p>生物混凝土現在雖然比傳統水泥貴約 <strong>5–10%</strong>，但能幫客戶省下未來 <strong>50% 以上的維修費</strong>。</p>
+        <br>
+        <p>透過巴氏芽孢八疊球菌的<strong>生物礦化機制</strong>，安築生技的「自我修復混凝土雙效組」不僅是一項革新材料技術——它是<strong>結構永續與財務永續的雙重解決方案</strong>。</p>
+        <br>
+        <p>當每一棟建築都擁有自癒能力，維修不再是負擔，老化不再是宿命。<strong>從微小開始，讓建築自我修復。</strong></p>
+      </div>
+      <div class="conclusion-side">
+        <div class="team-block">
+          <div class="team-head">TEAM MEMBERS — 第7組</div>
+          <div class="team-member">
+            <span class="tm-id">CDJ114004</span>
+            <span class="tm-name">陳柏諭</span>
+          </div>
+          <div class="team-member">
+            <span class="tm-id">CAE114034</span>
+            <span class="tm-name">楊程甯</span>
+          </div>
+          <div class="team-member">
+            <span class="tm-id">CAE114011</span>
+            <span class="tm-name">蕭有駿</span>
+          </div>
+        </div>
+        <div class="group-badge">自然科學通論 · 期末報告</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="ft-left">© 2025 <em>ANZHU BIOTECH</em> — 安築生技股份有限公司</span>
+  <span class="ft-right">自然科學通論期末報告 · 第7組</span>
+</footer>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in'), i * 80);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+
+</body>
+</html>
